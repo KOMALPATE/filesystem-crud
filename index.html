@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<body>
+    <div id="loader" class="loader-container d-none">
+
+        <div class="spinner-border " role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <h1>
+        <p1>User Details</p1>
+    </h1>
+
+    <div class="d-grid gap-2 d-md-flex m-2 justify-content-md-end">
+        <button onclick="openmodal('addmodal')" type="button" style="background-color: rgb(89, 114, 224) ;"
+            class="btn btn-primary col-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">
+            Add Customer Details
+
+        </button>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div><br>
+                        <div class="frame" id="frame"></div>
+                        <input class="img" type="file" id="userImage" name="choose-file" accept="image/*" />
+                        <label for="choose-file"></label>
+                    </div>
+                    <form id="myForm" onsubmit="submitbtn(event)">
+                        <input type="hidden" id="userid">
+                        <div class="form-group">
+                            <label for="UserName" class="col-form-label">UserName:</label>
+                            <p style="color: red;" class="d-none" id="usernamerror">Not require username</p>
+                            <input type="text" class="form-control" id="UserName" required minlength="8">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="Email" class="col-form-label">Email:</label>
+                            <p style="color: red;" class="d-none" id="emailerror">Not require email</p>
+                            <input class="form-control" id="Email" required minlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="MobileNo" class="col-form-label">MobileNo:</label>
+                            <p style="color: red;" class="d-none" id="mobilenoerror">Not require MobileNo</p>
+                            <input type="number" class="form-control" id="MobileNo" required maxlength="10">
+
+                        </div>
+
+
+                        <div class="modal-footer">
+
+
+                            <button id="button" type="submit" class=" btn btn-primary" value="add">Submit</button>
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">Close</button>
+                            <!-- <button id="spinner" class="btn btn-primary" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm d-none" role="status"
+                                    aria-hidden="true"></span>
+                                Add...
+                            </button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table style="width:100%" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr class="table-danger">
+                <th scope="col">No.</th>
+                <th scope="col">UserName</th>
+                <th scope="col"> Email</th>
+                <th scope="col">MobileNo</th>
+                <th scope="col">Action</th>
+                <th scope="col">Images</th>
+            </tr>
+        </thead>
+        <tbody id="customerTbody"></tbody>
+        <!-- email -->
+        <div class="d-grid gap-2 d-md-flex m-2 justify-content-md-end">
+            <div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Email Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+    
+                            <input type="hidden" id="userid">
+                            <div class="form-group">
+                                <label for="UserName" class="col-form-label">Email:</label>
+                                <input type="text" class="form-control" id="email" required minlength="8">
+    
+                            </div>
+                            <div class="form-group">
+                                <label for="Email" class="col-form-label">Subject:</label>
+                                <input type="text" class="form-control" id="subject" required minlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="MobileNo" class="col-form-label">Description:</label>
+                                <input type="text" class="form-control" id="desc" required maxlength="10">
+                            </div>
+                            <div class="modal-footer">
+                                <button id="sendmail" type="button" class=" btn btn-primary" value="add"
+                                    onclick="emailmodal();">Send Email</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">Close</button>
+                            </div>
+    
+                        </div>
+    
+    </table>
+
+
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
